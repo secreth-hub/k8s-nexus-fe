@@ -7,18 +7,60 @@ export default function LoginPage({
   searchParams: Promise<{ error?: string }>;
 }) {
   return (
-    <main style={{ maxWidth: 360, margin: "4rem auto", fontFamily: "sans-serif" }}>
-      <h1>Log in</h1>
-      <form action={login} style={{ display: "flex", flexDirection: "column", gap: "0.75rem" }}>
-        <input name="email" type="email" placeholder="Email" required />
-        <input name="password" type="password" placeholder="Password" required />
-        <button type="submit">Log in</button>
-      </form>
-      <ErrorMessage searchParams={searchParams} />
-      <p>
-        No account? <Link href="/register">Register</Link>
-      </p>
+    <main className="flex min-h-screen items-center justify-center px-4">
+      <div className="w-full max-w-sm rounded-2xl border border-black/10 bg-white/80 p-8 shadow-xl backdrop-blur dark:border-white/10 dark:bg-white/5">
+        <h1 className="text-2xl font-semibold tracking-tight">Log in</h1>
+        <p className="mt-1 text-sm text-neutral-500 dark:text-neutral-400">
+          Welcome back to Nexus.
+        </p>
+
+        <form action={login} className="mt-6 flex flex-col gap-4">
+          <Field label="Email">
+            <input
+              name="email"
+              type="email"
+              placeholder="you@example.com"
+              required
+              className="w-full rounded-lg border border-black/10 bg-white px-3 py-2 text-sm outline-none transition focus:border-neutral-400 focus:ring-2 focus:ring-neutral-400/30 dark:border-white/15 dark:bg-neutral-900"
+            />
+          </Field>
+          <Field label="Password">
+            <input
+              name="password"
+              type="password"
+              placeholder="••••••••"
+              required
+              className="w-full rounded-lg border border-black/10 bg-white px-3 py-2 text-sm outline-none transition focus:border-neutral-400 focus:ring-2 focus:ring-neutral-400/30 dark:border-white/15 dark:bg-neutral-900"
+            />
+          </Field>
+
+          <button
+            type="submit"
+            className="mt-2 w-full rounded-lg bg-neutral-900 px-3 py-2 text-sm font-medium text-white transition hover:bg-neutral-700 dark:bg-white dark:text-neutral-900 dark:hover:bg-neutral-200"
+          >
+            Log in
+          </button>
+        </form>
+
+        <ErrorMessage searchParams={searchParams} />
+
+        <p className="mt-6 text-center text-sm text-neutral-500 dark:text-neutral-400">
+          No account?{" "}
+          <Link href="/register" className="font-medium text-neutral-900 underline underline-offset-2 dark:text-white">
+            Register
+          </Link>
+        </p>
+      </div>
     </main>
+  );
+}
+
+function Field({ label, children }: { label: string; children: React.ReactNode }) {
+  return (
+    <label className="flex flex-col gap-1.5">
+      <span className="text-sm font-medium text-neutral-700 dark:text-neutral-300">{label}</span>
+      {children}
+    </label>
   );
 }
 
@@ -29,5 +71,9 @@ async function ErrorMessage({
 }) {
   const { error } = await searchParams;
   if (!error) return null;
-  return <p style={{ color: "crimson" }}>{error}</p>;
+  return (
+    <p className="mt-4 rounded-lg bg-red-50 px-3 py-2 text-sm text-red-700 dark:bg-red-950/40 dark:text-red-400">
+      {error}
+    </p>
+  );
 }
