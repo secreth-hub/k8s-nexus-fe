@@ -28,5 +28,5 @@ jobs:
           context: .
           push: true
           tags: |
-            ghcr.io/secreth-tech/nexus-frontend:latest
-            ghcr.io/secreth-tech/nexus-frontend:${{ steps.sha.outputs.short }}
+            ghcr.io/secreth-hub/nexus-frontend:latest
+            ghcr.io/secreth-hub/nexus-frontend:${{ steps.sha.outputs.short }}
